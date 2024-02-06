@@ -17,7 +17,7 @@ const InitialScreen = () => {
     // console.log("Pociones Redicibdas: ");
     // console.log(recivedData);
     
-    console.log("Error in data? " + errorInData)
+    // console.log("Error in data? " + errorInData)
 
   }, [isInTheGame, recivedData, errorInData])
 
@@ -25,7 +25,7 @@ const InitialScreen = () => {
     try{
   
       console.log("Entra en getData");
-      const url = "https://git.githubusercontent.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53/raw/25dc0198b2aaa85f0b5583978a0c6772cab63aba/Potions.js"
+      const url = "https://gist.githubusercontent.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53/raw/25dc0198b2aaa85f0b5583978a0c6772cab63aba/Potions.js"
       const data = await axios.get(url);
       setIsInTheGame(true)
       return data.data
