@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
-import Home from "../page";
+import InitialScreen from "../components/InitialScreen";
 
 
 const ResultScreen = (WinnerAndLooserData ) => {
@@ -67,17 +67,29 @@ const ResultScreen = (WinnerAndLooserData ) => {
                 <h1>Total Score:</h1>
                 <h1>{(looserData[0].DiceResult * 0.1).toFixed(1)} x {looserData[0].Potion.power} / {looserData[0].Potion.mana} = {looserData[0].TotalScore} </h1>
               </div>
-          <button onClick={handleRestart}> ReLaunch Battle</button>
+          <button style={button} onClick={handleRestart}> ReLaunch Battle</button>
         </div>
 
         )}
 
          {restartGame && (
-           <Home />
+           <InitialScreen />
          )}
     </div>
 
   );
+}
+
+const button = {
+  justifyContent: "center", 
+  alignItems: "center", 
+  display: "flex", 
+  width: '125px', 
+  height: '65px',  
+  borderRadius: 40,
+  marginTop: '15%',
+  marginLeft: 150,
+  backgroundColor: 'rgba(58, 168, 255,1)',
 }
 
 export default ResultScreen

@@ -40,11 +40,12 @@ const InitialScreen = () => {
   const enterTheGame = async () => { setRecivedData( await getData()); }
   
   return (
-    <div>
+    <div 
+    style={centered}>
       {!isInTheGame && (
       <div>  
         <h1 style={{color: "white"}}> LAS POCIMAS REBELDES</h1>
-        <button onClick={() => { enterTheGame()} }> ENTER </button>
+        <button style={button} onClick={() => { enterTheGame()} }> ENTER </button>
         {errorInData &&  (
           <Alert severity="error">This is an error Alert.</Alert>
         )}
@@ -58,6 +59,26 @@ const InitialScreen = () => {
       )}
     </div>
   );
+}
+
+const button = {
+  justifyContent: "center", 
+  alignItems: "center", 
+  display: "flex", 
+  width: '125px', 
+  height: '65px',  
+  borderRadius: 40,
+  marginTop: '15%',
+  marginLeft: 150,
+  backgroundColor: 'rgba(58, 168, 255,1)',
+}
+
+const centered = {
+  justifyContent: "center", 
+  alignItems: "center", 
+  display: "flex", 
+  width: "100%",
+  height: "100%",
 }
 
 export default InitialScreen;

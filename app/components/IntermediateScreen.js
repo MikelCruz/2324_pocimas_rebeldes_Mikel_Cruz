@@ -221,7 +221,7 @@ const IntermediateScreen = ({ potionData }) => {
             </div>
           </div>
 
-          <button onClick={handleBattle}> LAUNCH BATTLE</button>
+          <button style={button} onClick={handleBattle}> LAUNCH BATTLE</button>
 
         </div>
       )}
@@ -237,6 +237,18 @@ const IntermediateScreen = ({ potionData }) => {
 
     </div>
   );
+}
+
+const button = {
+  justifyContent: "center", 
+  alignItems: "center", 
+  display: "flex", 
+  width: '125px', 
+  height: '65px',  
+  borderRadius: 40,
+  marginTop: '15%',
+  marginLeft: 150,
+  backgroundColor: 'rgba(58, 168, 255,1)',
 }
 
 export default IntermediateScreen;
