@@ -1,11 +1,25 @@
+import { Rowdies } from "next/font/google";
 import React, { useState, useEffect } from "react";
+import Image from 'next/image'
+
+// Rutas de imagenes
+import curativeImage from '../../assets/curative_potion.png'
+import nonCurativeImage from '../../assets/poison_potion.png'
+import dice1 from '../../assets/dice_1.png'
+import dice2 from '../../assets/dice_2.png'
+import dice3 from '../../assets/dice_3.png'
+import dice4 from '../../assets/dice_4.png'
+import dice5 from '../../assets/dice_5.png'
+import dice6 from '../../assets/dice_6.png'
 
 const IntermediateScreen = ({ potionData }) => {
 
   // Variables locales
-  const [selectedCurativePotion, setSelectedCurativePotion] = useState([]);
-  const [selectedNonCurativePotion, setSelectedNonCurativePotion] = useState([]);
+  const [selectedCurativePotion, setSelectedCurativePotion] = useState(null);
+  const [selectedNonCurativePotion, setSelectedNonCurativePotion] = useState(null);
+  const [diceArray, setDiceArray] = useState(null) // Array de Imagenes de dados
 
+  
   // UseEffect Inicial
   useEffect(() => { 
     selectedPotions();
@@ -65,17 +79,72 @@ const IntermediateScreen = ({ potionData }) => {
   }
 
   const selectDice = () => {
-    
+
   }
+
+  if(selectedCurativePotion === undefined || selectedNonCurativePotion === undefined ||
+    selectedCurativePotion === null|| selectedNonCurativePotion === null){
+    return null;
+  }
+
 
   return (
     <div>
       <h1> ESTOY DENTRO</h1>
+      {/* Curative */}
+      <div style={{width:'40%', float:'left'}}>
+        <Image src={curativeImage} 
+        alt="Curative Potion"
+        width={50}
+        height={50}/>
+        <div style={{display: 'column'}}>
+            <h2> Name: {selectedCurativePotion.name}</h2>
+        </div>
 
-      {/* {potionData.map((Potions) => (
-        <>
-        </>
-      ) */}
+        <div style={{display: 'column'}}>
+          <h2> Alias: {selectedCurativePotion.alias}</h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Curative: true</h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Power: {selectedCurativePotion.power}</h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Mana: {selectedCurativePotion.mana}</h2>
+        </div>
+      </div>
+        
+      {/* Non Curative */}
+      <div style={{width:'40%', float:'left'}}>
+      <Image src={nonCurativeImage} 
+        alt="Curative Potion"
+        width={50}
+        height={50}/>
+        <div style={{display: 'column'}}>
+            <h2> Name: {selectedNonCurativePotion.name}</h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Alias: {selectedNonCurativePotion.alias} </h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Curative: false</h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Power: {selectedNonCurativePotion.power} </h2>
+        </div>
+
+        <div style={{display: 'column'}}>
+          <h2> Mana: {selectedNonCurativePotion.mana}</h2>
+        </div>
+      </div>
+
     </div>
   );
 }
