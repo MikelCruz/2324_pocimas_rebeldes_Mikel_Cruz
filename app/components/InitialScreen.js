@@ -3,10 +3,11 @@ import axios from "axios";
 
 const getData = async () => {
   try{
+
     console.log("Entra en getData");
-    const url = "https://gist.github.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53"
+    const url = "https://gist.githubusercontent.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53/raw/25dc0198b2aaa85f0b5583978a0c6772cab63aba/Potions.js"
     const data = await axios.get(url);
-    return data
+    return data.data
 
   } catch (error) {
     console.error(error)
@@ -16,10 +17,9 @@ const getData = async () => {
 
 const InitialScreen = () => {
 
-  const enterTheGame = () => {
-    console.log("entra en el boton");
-    const data = getData();
-    console.log("Datos:")
+  const enterTheGame = async () => {
+
+    const data = await getData();
     console.log(data);
   }
   
