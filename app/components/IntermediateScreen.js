@@ -19,7 +19,9 @@ const IntermediateScreen = ({ potionData }) => {
   const [selectedNonCurativePotion, setSelectedNonCurativePotion] = useState(null);
   const [diceArray, setDiceArray] = useState(null) // Array de Imagenes de dados
 
-  
+  const [selectedCurativeDiceArray, setSelectedCurativeDiceArray ] = useState(null);
+  const [selectedNonCurativeDiceArray, setSelectedNonCurativeDiceArray ] = useState(null);
+
   // UseEffect Inicial
   useEffect(() => { 
     selectedPotions();
@@ -30,13 +32,16 @@ const IntermediateScreen = ({ potionData }) => {
   // Recarga de datos
   useEffect(() => { 
 
-    console.log("Pocion Curativa:")
-    console.log(selectedCurativePotion)
+    // console.log("Pocion Curativa:")
+    // console.log(selectedCurativePotion)
 
-    console.log("Pocion No Curativa:")
-    console.log(selectedNonCurativePotion)
+    // console.log("Pocion No Curativa:")
+    // console.log(selectedNonCurativePotion)
 
-  }, [selectedCurativePotion, selectedNonCurativePotion])
+    // console.log(diceArray);
+
+  }, [selectedCurativePotion, selectedNonCurativePotion, 
+    diceArray, selectedCurativeDiceArray, selectedNonCurativeDiceArray])
 
   // ==========================
   //        REFACTORIZAR
@@ -78,12 +83,17 @@ const IntermediateScreen = ({ potionData }) => {
 
   }
 
-  const selectDice = () => {
+  const selectDice = async () => {
+    const dices = [dice1, dice2, dice3, dice4, dice5, dice6]
+    setDiceArray(dices);
 
+    setSelectedCurativeDiceArray(Math.floor(Math.random() * dices.length))
+    setSelectedNonCurativeDiceArray(Math.floor(Math.random() * dices.length))
   }
 
   if(selectedCurativePotion === undefined || selectedNonCurativePotion === undefined ||
-    selectedCurativePotion === null|| selectedNonCurativePotion === null){
+    selectedCurativePotion === null|| selectedNonCurativePotion === null || 
+    selectedCurativeDiceArray === null || selectedNonCurativeDiceArray === null){
     return null;
   }
 
@@ -97,6 +107,13 @@ const IntermediateScreen = ({ potionData }) => {
         alt="Curative Potion"
         width={50}
         height={50}/>
+
+        <Image src={diceArray[selectedCurativeDiceArray]} 
+        alt="Dice Array"
+        width={50}
+        height={50}/>
+
+
         <div style={{display: 'column'}}>
             <h2> Name: {selectedCurativePotion.name}</h2>
         </div>
@@ -120,10 +137,16 @@ const IntermediateScreen = ({ potionData }) => {
         
       {/* Non Curative */}
       <div style={{width:'40%', float:'left'}}>
-      <Image src={nonCurativeImage} 
-        alt="Curative Potion"
+        <Image src={nonCurativeImage} 
+        alt="Non Curative Potion"
         width={50}
         height={50}/>
+
+        <Image src={diceArray[selectedNonCurativeDiceArray]}
+        alt="Dice Array"
+        width={50}
+        height={50}/>
+
         <div style={{display: 'column'}}>
             <h2> Name: {selectedNonCurativePotion.name}</h2>
         </div>
