@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
+import IntermediateScreen from './IntermediateScreen'
 
 
 
@@ -49,8 +49,9 @@ const InitialScreen = () => {
       )}
       
       {isInTheGame && (
-        <h1> ESTOY DENTRO</h1>
-
+        <div>
+          <IntermediateScreen />
+        </div>
       )}
     </div>
   );
