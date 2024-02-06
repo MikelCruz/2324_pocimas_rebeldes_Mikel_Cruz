@@ -1,29 +1,31 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import IntermediateScreen from './IntermediateScreen'
-
-
+import Alert from '@mui/material/Alert';
 
 const InitialScreen = () => {
 
   // Variables locales 
   const [recivedData, setRecivedData] = useState([]); 
   const [isInTheGame, setIsInTheGame] = useState(false); 
+  const [errorInData, setErrorInData] = useState (false);
 
   // Use Effect para recargar datos
   useEffect(() => { 
-    console.log("Esta en el juego? " + isInTheGame);
 
-    console.log("Pociones Redicibdas: ");
-    console.log(recivedData);
+    // console.log("Esta en el juego? " + isInTheGame);
+    // console.log("Pociones Redicibdas: ");
+    // console.log(recivedData);
+    
+    console.log("Error in data? " + errorInData)
 
-  }, [isInTheGame, recivedData])
+  }, [isInTheGame, recivedData, errorInData])
 
   const getData = async () => {
     try{
   
       console.log("Entra en getData");
-      const url = "https://gist.githubusercontent.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53/raw/25dc0198b2aaa85f0b5583978a0c6772cab63aba/Potions.js"
+      const url = "https://git.githubusercontent.com/Oskar-Dam/ad2c96601e79ad108227bc25f90e4e53/raw/25dc0198b2aaa85f0b5583978a0c6772cab63aba/Potions.js"
       const data = await axios.get(url);
       setIsInTheGame(true)
       return data.data
@@ -31,13 +33,11 @@ const InitialScreen = () => {
     } catch (error) {
       console.error(error)
       setIsInTheGame(false)
+      setErrorInData(true)
     }
   } 
 
-  const enterTheGame = async () => {
-
-    setRecivedData( await getData());
-  }
+  const enterTheGame = async () => { setRecivedData( await getData()); }
   
   return (
     <div>
@@ -45,12 +45,15 @@ const InitialScreen = () => {
       <div>  
         <h1 style={{color: "white"}}> LAS POCIMAS REBELDES</h1>
         <button onClick={() => { enterTheGame()} }> ENTER </button>
+        {errorInData &&  (
+          <Alert severity="error">This is an error Alert.</Alert>
+        )}
       </div>
       )}
       
       {isInTheGame && (
         <div>
-          <IntermediateScreen />
+          <IntermediateScreen potionData={recivedData}/>
         </div>
       )}
     </div>
