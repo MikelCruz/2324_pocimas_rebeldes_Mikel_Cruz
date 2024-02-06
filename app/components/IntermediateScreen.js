@@ -37,20 +37,8 @@ const IntermediateScreen = ({ potionData }) => {
 
   // Recarga de datos
   useEffect(() => { 
-
-    // console.log("Pocion Curativa:")
-    // console.log(selectedCurativePotion)
-
-    // console.log("Pocion No Curativa:")
-    // console.log(selectedNonCurativePotion)
-
-    // console.log(diceArray);
-
-    console.log(BattleActive)
-
-  }, [selectedCurativePotion, selectedNonCurativePotion, 
-    diceArray, selectedCurativeDiceArray, selectedNonCurativeDiceArray,
-    BattleActive])
+    // console.log(BattleActive)
+  }, [BattleActive])
 
   // ==========================
   //        REFACTORIZAR
@@ -101,8 +89,6 @@ const IntermediateScreen = ({ potionData }) => {
   }
 
   const handleBattle = () => {
-
-    console.log("Entra en Battle")
     
     // Penalizacines de cada pocion
     const penalizationCP = selectedCurativeDiceArray * 0.1
@@ -116,15 +102,41 @@ const IntermediateScreen = ({ potionData }) => {
     const Looser = [];
 
     if (ResultCP > ResultPP) {
-      Winner.push(selectedCurativePotion)
-      Looser.push(selectedNonCurativePotion)
+      const WinnerPot = [{
+        Potion: selectedCurativePotion,
+        TotalScore: ResultCP,
+        DiceResult: selectedCurativeDiceArray,
+        Image: curativeImage,
+      }];
+      Winner.push(WinnerPot)
 
-      } else {
-        Winner.push(selectedNonCurativePotion) 
-        Looser.push(selectedCurativePotion)
+      const LooserPot = [{
+        Potion: selectedNonCurativePotion,
+        TotalScore: ResultPP,
+        DiceResult: selectedNonCurativeDiceArray,
+        Image: nonCurativeImage,
+      }];
+      Looser.push(LooserPot)
+
+      } else if (ResultCP < ResultPP){
+        const WinnerPot = [{
+          Potion: selectedNonCurativePotion,
+          TotalScore: ResultPP,
+          DiceResult: selectedNonCurativeDiceArray,
+          Image: nonCurativeImage,
+        }];
+        Winner.push(WinnerPot) 
+
+        const LooserPot = [{
+          Potion: selectedCurativePotion,
+          TotalScore: ResultCP,
+          DiceResult: selectedCurativeDiceArray,
+          Image: curativeImage,
+        }];
+        Looser.push(LooserPot)
       };
 
-      setWinnerPotion(Winner)
+      setWinnerPotion(Winner);
       setLooserPotion(Looser);
 
       setBattleActive(true);
@@ -215,7 +227,11 @@ const IntermediateScreen = ({ potionData }) => {
       )}
       {BattleActive && (
         <div>
-          <ResultScreen />
+          <ResultScreen 
+            winnerData={WinnerPotion} 
+            looserData={LooserPotion} 
+            diceArrayImage={diceArray} 
+          />
         </div>
       )}
 
